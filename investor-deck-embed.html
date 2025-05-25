@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Tierras.mx - Investor Deck</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>T</text></svg>">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <!-- Splitting.js (Opcional - para animación de caracteres) -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" /> -->
+    <!-- <script src="https://unpkg.com/splitting/dist/splitting.min.js" defer></script> -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- TUS ESTILOS - REEMPLAZA CON TU URL PÚBLICA -->
+    <link rel="stylesheet" href="URL_PUBLICA_DE_TU/style-investor-slides.css">
+
+    <style>
+        /* Estilos básicos para asegurar pantalla completa DENTRO del iframe/custom element */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Muy importante */
+            font-family: 'Lora', serif; /* Fallback general */
+            background-color: #FAF8F5; /* Fallback si el CSS externo tarda */
+        }
+        #deck-presentation-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="deck-presentation-container">
+        <!-- DIAPOSITIVA 0: PORTADA -->
+        <section id="portada" class="deck-slide active-slide">
+            <div class="slide-content-centered">
+                <h1 class="deck-main-title" data-splitting>Tierras.mx</h1>
+                <p class="deck-tagline animated-subtitle">Donde Comienza Tu Experiencia Extraordinaria.<br>Te invitamos a ser parte del futuro del lujo experiencial y con propósito en México.</p>
+                <button class="slide-nav-button next-slide-button" data-target-id="sumario">Descubrir la Oportunidad →</button>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 1: UN VISTAZO -->
+        <section id="sumario" class="deck-slide">
+            <div class="slide-content">
+                <h2 class="deck-slide-title animated-title-line">Un Vistazo a Tierras.mx</h2>
+                <p class="deck-p animated-text-block">¡Hola! Somos Tierras.mx, una plataforma y un ecosistema de valor diseñados para conectar propiedades verdaderamente singulares en México con personas visionarias como tú. No solo encontramos terrenos y casas especiales; ayudamos a imaginar y crear proyectos que cuentan historias y dejan un legado positivo.</p>
+                <div class="deck-key-points animated-list">
+                    <span><span class="highlight-metric">¿Qué nos hace únicos?</span> Combinamos propiedades exclusivas, una red de expertos de primer nivel y consultoría personalizada.</span>
+                    <span><span class="highlight-metric">¿El momento es ahora?</span> ¡Definitivamente! Hay una creciente sed por autenticidad, sostenibilidad y experiencias inmobiliarias que vayan más allá.</span>
+                    <span><span class="highlight-metric">¿Cómo generamos valor?</span> Con un modelo inteligente que asegura ingresos desde el inicio y crece con solidez.</span>
+                    <span><span class="highlight-metric">Nuestra gran meta:</span> Ser la marca en la que todos confían y a la que aspiran cuando piensan en propiedades y proyectos extraordinarios en México.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 2: LA OPORTUNIDAD -->
+        <section id="oportunidad" class="deck-slide dark-theme">
+             <div class="slide-content">
+                <h2 class="deck-slide-title animated-title-line">Una Oportunidad que Inspira</h2>
+                <p class="deck-p animated-text-block">Hemos notado algo interesante: quienes buscan propiedades o desarrollar proyectos de alto nivel en México, anhelan más que solo una transacción. Buscan experiencias que transformen, un servicio discreto y un socio que entienda el valor profundo de un lugar único. El mercado actual, a menudo fragmentado, no siempre responde a esta necesidad.</p>
+                <p class="deck-stat-highlight animated-stat">Aquí es donde entramos nosotros: existe una <span class="highlight-stat-value" data-value-text="oportunidad emocionante">oportunidad emocionante</span> para ser ese puente, ese curador de confianza y ese facilitador de sueños que el mercado está esperando.</p>
+            </div>
+        </section>
+        
+        <!-- DIAPOSITIVA 3: NUESTRA PROPUESTA (SOLUCIÓN) -->
+        <section id="solucion" class="deck-slide">
+            <div class="slide-content">
+                <h2 class="deck-slide-title animated-title-line">Nuestra Propuesta: Un Ecosistema Completo</h2>
+                <p class="deck-p animated-text-block">En Tierras.mx, hemos creado algo más que una inmobiliaria. Somos un ecosistema pensado para acompañarte en cada paso:</p>
+                <ol class="deck-solution-list animated-list-ordered">
+                    <li><span class="solution-point-title">"Activos Destacados":</span> Portafolio curado de propiedades singulares, evaluadas por su potencial único. Facilitamos la visión, ahorrando tiempo e incertidumbre.</li>
+                    <li><span class="solution-point-title">"Profesionales Aliados":</span> Red selecta de arquitectos, diseñadores y especialistas, conectados proactivamente a proyectos que valoran la excelencia.</li>
+                    <li><span class="solution-point-title">"Gestión Inicial de Proyectos":</span> Consultoría experta para transformar ideas en conceptos viables y con alma, minimizando riesgos desde el inicio.</li>
+                    <li><span class="solution-point-title">"Recursos y Análisis":</span> Contenido estratégico (podcast, editorial) que posiciona, educa y genera comunidad.</li>
+                </ol>
+                <p class="deck-value-prop-highlight animated-text-block">En resumen: "Te ayudamos a encontrar o vender propiedades excepcionales, a desarrollar proyectos que inspiran, y a conectar el mejor talento con las tierras más prometedoras."</p>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 4: CÓMO FUNCIONA (MODELO DE NEGOCIO Y MONETIZACIÓN) -->
+        <section id="modelo" class="deck-slide dark-theme">
+            <div class="slide-content">
+                <h2 class="deck-slide-title animated-title-line">Cómo Creamos Valor (¡Y Rentabilidad!)</h2>
+                <p class="deck-p animated-text-block">Nuestra estrategia está diseñada para ser rentable desde el principio y crecer de forma inteligente y sostenible. Así es como generamos ingresos:</p>
+                <div class="deck-revenue-streams animated-grid">
+                    <div class="stream-item">
+                        <span class="stream-title">Comisiones por Venta de Propiedades:</span>
+                        <span class="stream-detail">Al comercializar nuestros "Activos Destacados". (Por ejemplo, un 5% del valor de venta. Prioridad: asegurar propiedades de alta calidad y cerrar primeras ventas).</span>
+                    </div>
+                    <div class="stream-item">
+                        <span class="stream-title">Honorarios por Consultoría Especializada:</span>
+                        <span class="stream-detail">Por nuestra "Gestión Inicial de Proyectos". (Paquetes desde $10,000 USD. Prioridad: atraer primeros clientes).</span>
+                    </div>
+                    <div class="stream-item">
+                        <span class="stream-title">Servicios para Nuestra Red de Expertos:</span>
+                        <span class="stream-detail">Membresías premium o comisiones (Finder's Fee). (Fase 2, tras consolidar la red).</span>
+                    </div>
+                    <div class="stream-item">
+                        <span class="stream-title">Contenido y Talleres Exclusivos:</span>
+                        <span class="stream-detail">(Potencial a mediano plazo, tras generar audiencia y validar demanda).</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 5: EL MERCADO (Y NUESTROS CLIENTES IDEALES) -->
+        <section id="mercado" class="deck-slide">
+            <div class="slide-content">
+                <h2 class="deck-slide-title animated-title-line">Conectando con las Personas Correctas</h2>
+                <p class="deck-p animated-text-block">Nos enfocamos en nichos de alto valor que buscan singularidad y un servicio excepcional. Nuestros clientes ideales:</p>
+                <ul class="deck-segment-list animated-list-bullet">
+                    <li><span class="segment-title">Compradores/Inversionistas Visionarios:</span> Familias constructoras de legado, desarrolladores de nicho, conocedores internacionales.</li>
+                    <li><span class="segment-title">Vendedores de Propiedades Únicas:</span> Dueños de activos con historia, diseño o potencial especial.</li>
+                    <li><span class="segment-title">"Profesionales Aliados" Excepcionales:</span> Los mejores arquitectos, diseñadores y artesanos.</li>
+                    <li><span class="segment-title">Clientes de Consultoría con Grandes Ideas:</span> Propietarios o emprendedores buscando cauce para su visión.</li>
+                </ul>
+                <p class="deck-p animated-text-block">Llegamos a ellos vía www.tierras.mx, contenido de valor (podcast, editorial), red personal y RRPP estratégica.</p>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 6: EL EQUIPO (Y NUESTROS SUPERPODERES) -->
+        <section id="equipo" class="deck-slide dark-theme">
+            <div class="slide-content">
+                <h2 class="deck-slide-title animated-title-line">El Corazón de Tierras.mx: Equipo y Recursos</h2>
+                <p class="deck-p animated-text-block">Nuestro motor es la combinación de talento, conocimiento y las herramientas adecuadas:</p>
+                <div class="deck-resources-grid animated-grid">
+                    <div class="resource-item"><span class="resource-title">Colectivo de Liderazgo Estratégico:</span> <span class="resource-detail">Socios fundadores con experiencia probada en inmobiliario, marketing, diseño y finanzas. Comprometidos con equity.</span></div>
+                    <div class="resource-item"><span class="resource-title">Capital Intelectual Propio:</span> <span class="resource-detail">Marca, metodologías de curación, contenido de valor y bases de datos interconectadas.</span></div>
+                    <div class="resource-item"><span class="resource-title">Red de "Profesionales Aliados":</span> <span class="resource-detail">Extensión de nuestra promesa de calidad y capacidad de ejecución.</span></div>
+                    <div class="resource-item"><span class="resource-title">Alianzas Estratégicas Clave:</span> <span class="resource-detail">Notarías, despachos legales, productores de contenido y otros actores esenciales.</span></div>
+                </div>
+                <p class="deck-p animated-text-block">Esta sinergia nos permite construir relaciones de confianza y lealtad que perduran.</p>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 7: POTENCIAL (PROYECCIONES FINANCIERAS) -->
+        <section id="financiero" class="deck-slide">
+            <div class="slide-content">
+                <h2 class="deck-slide-title animated-title-line">Viendo Hacia el Futuro: Nuestro Potencial</h2>
+                <p class="deck-p animated-text-block">Nuestras proyecciones financieras son realistas y reflejan el potencial de nuestras fuentes de ingreso. (Modelo financiero detallado disponible).</p>
+                <div class="deck-financial-projections animated-grid">
+                    <div class="projection-item"><span class="projection-year">Ingresos Estimados - Año 1:</span> <span class="projection-value" data-count-to="120000">$120,000 USD</span></div>
+                    <div class="projection-item"><span class="projection-year">Ingresos Estimados - Año 3:</span> <span class="projection-value" data-count-to="812000">$812,000 USD</span></div>
+                    <div class="projection-item"><span class="projection-year">Ingresos Estimados - Año 5:</span> <span class="projection-value" data-count-to="2500000">$2.5 MM USD</span></div>
+                    <div class="projection-item"><span class="projection-year">EBITDA Esperado - Año 3:</span> <span class="projection-value" data-count-to="37.5" data-suffix="%">~37.5%</span></div>
+                </div>
+                <p class="deck-p animated-text-block">Estructura de costos inicial optimizada: marca, plataforma, contenido y equipo mínimo viable.</p>
+                <p class="deck-p animated-text-block disclaimer-text">Proyecciones ilustrativas sujetas a ejecución y condiciones de mercado.</p>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 8: SÚMATE (LA INVERSIÓN) -->
+        <section id="inversion" class="deck-slide dark-theme">
+            <div class="slide-content">
+                <h2 class="deck-slide-title animated-title-line">Te Invitamos a Ser Parte de Este Viaje</h2>
+                <p class="deck-p animated-text-block">Buscamos una inversión semilla de <span class="highlight-metric">[Monto Específico, ej. $300,000 USD]</span> para catalizar nuestro crecimiento. Fondos para:</p>
+                <ul class="deck-use-of-funds animated-list-bullet">
+                    <li>Perfeccionar plataforma digital (www.tierras.mx) y CRM.</li>
+                    <li>Lanzar estrategia de marketing de contenidos y adquisición de clientes/listings inaugurales.</li>
+                    <li>Formar equipo operativo inicial.</li>
+                    <li>Capital de trabajo para primeros 12-18 meses.</li>
+                </ul>
+                <p class="deck-p animated-text-block">Ofrecemos participación accionaria [o Nota Convertible]. Buscamos socios que aporten capital, visión estratégica y red de valor para co-crear el referente del lujo experiencial en México.</p>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 9: HABLEMOS (CONTACTO) -->
+        <section id="contacto-investor" class="deck-slide contact-deck">
+             <div class="slide-content-centered">
+                <h2 class="deck-slide-title" data-splitting>Tierras.mx: Donde Tu Inversión se Convierte en Legado.</h2>
+                <p class="deck-contact-p animated-text-block">Agradecemos tu tiempo. Si nuestra visión resuena contigo y quieres explorar esta oportunidad en detalle, conversemos:</p>
+                <div class="deck-contact-info animated-text-block">
+                    <p>[Nombre del Fundador/Contacto Principal]</p>
+                    <p>[Cargo, ej. Socio Fundador]</p>
+                    <p><a href="mailto:inversion@tierras.mx" class="deck-email-link">inversion@tierras.mx</a></p>
+                    <p><a href="tel:+523331010164" class="deck-tel-link">+52 33 3101 0164</a></p>
+                    <p><a href="URL_LINKEDIN_EMPRESA_O_FUNDADOR" class="deck-linkedin-link" target="_blank" rel="noopener noreferrer">Conócenos en LinkedIn</a></p>
+                </div>
+                <div class="deck-logo-footer">Tierras.mx</div>
+            </div>
+        </section>
+
+        <div class="deck-slide-navigation">
+            <button id="prev-slide" class="slide-nav-arrow" aria-label="Diapositiva Anterior">←</button>
+            <span id="current-slide-indicator">1 / 10</span>
+            <button id="next-slide" class="slide-nav-arrow" aria-label="Siguiente Diapositiva">→</button>
+        </div>
+    </div>
+
+    <!-- TUS SCRIPTS - REEMPLAZA CON TU URL PÚBLICA -->
+    <script src="URL_PUBLICA_DE_TU/script-investor-slides.js" defer></script>
+</body>
+</html>
