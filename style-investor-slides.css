@@ -1,1 +1,532 @@
+/* style-investor-slides.css */
 
+/* --- Reset / Normalize (Básico) --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Variables CSS --- */
+:root {
+    --font-title-display: 'Playfair Display', serif;
+    --font-title-section: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+    --font-serif: 'Lora', serif;
+
+    --color-bg-light: #FAF8F5;       /* Blanco Hueso Cremoso */
+    --color-text-light: #2C2A28;      /* Marrón Oscuro Terroso */
+    --color-bg-dark: #2C2A28;        /* Marrón Oscuro Terroso (para tema oscuro) */
+    --color-text-dark: #FAF8F5;       /* Blanco Hueso Cremoso (para tema oscuro) */
+    --color-accent: #AE9A7F;          /* Dorado Envejecido Sutil / Bronce Claro */
+    --color-accent-darker: #8A6F4F;   /* Un tono más oscuro del acento para hovers */
+
+    --section-padding-vertical: 6vh;
+    --section-padding-horizontal: 8vw;
+    --content-max-width: 800px;
+    --content-max-width-wider: 900px; /* Para grids, etc. */
+
+    --slide-transition-duration: 0.7s; /* Duración de transición entre slides */
+    --slide-transition-ease: cubic-bezier(0.645, 0.045, 0.355, 1); /* Ease para slides */
+}
+
+/* --- Estilos Globales del Body (Dentro del Elemento Personalizado/iFrame) --- */
+/* Estos ya están en el <style> inline del HTML, pero es bueno tenerlos aquí como referencia o si se quitan de allí */
+/*
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: var(--font-serif);
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+}
+*/
+
+/* --- Contenedor Principal de la Presentación --- */
+#deck-presentation-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-bg-light); /* Fondo general por si hay huecos */
+}
+
+/* --- Estructura de Diapositiva --- */
+.deck-slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--section-padding-vertical) var(--section-padding-horizontal);
+    background-color: var(--color-bg-light); /* Fondo por defecto de slide */
+    
+    /* Estado inicial para JS (controlado por JS para transiciones) */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100%); /* Empieza fuera a la derecha */
+    transition: opacity var(--slide-transition-duration) var(--slide-transition-ease), 
+                visibility var(--slide-transition-duration) var(--slide-transition-ease), 
+                transform var(--slide-transition-duration) var(--slide-transition-ease);
+    overflow-y: auto; /* Scroll DENTRO de una slide si el contenido es muy largo */
+}
+
+.deck-slide.active-slide {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0%);
+    z-index: 10; /* La activa siempre encima */
+}
+/* Clases para controlar la dirección de la animación de salida */
+.deck-slide.exit-left {
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 5; /* Detrás de la que entra */
+}
+.deck-slide.exit-right { /* Usada si se va hacia atrás y la anterior sale hacia la derecha */
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 5;
+}
+
+
+.slide-content, .slide-content-centered {
+    width: 100%;
+    max-width: var(--content-max-width);
+    /* Las animaciones de contenido se manejan con GSAP */
+}
+.slide-content-centered {
+    text-align: center;
+}
+
+/* --- Tema Oscuro para Diapositivas --- */
+.dark-theme {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-dark);
+}
+.dark-theme .deck-slide-title::before {
+    background-color: var(--color-accent); /* Ajustar si se necesita más contraste en oscuro */
+}
+.dark-theme .highlight-metric, .dark-theme .highlight-stat-value, 
+.dark-theme .projection-value, .dark-theme .stream-title, 
+.dark-theme .data-value, .dark-theme .solution-point-title, 
+.dark-theme .segment-title, .dark-theme .resource-title {
+    color: var(--color-accent); /* Puede necesitar ser un acento más brillante para oscuro */
+}
+.dark-theme .deck-key-points span::before, 
+.dark-theme .deck-segment-list li::before, 
+.dark-theme .deck-use-of-funds li::before,
+.dark-theme .deck-solution-list li::before {
+    color: var(--color-accent);
+}
+.dark-theme .deck-value-prop-highlight {
+    border-left-color: var(--color-accent);
+    border-right-color: var(--color-accent);
+}
+.dark-theme .stream-item, .dark-theme .projection-item, .dark-theme .resource-item {
+    border-color: rgba(250, 248, 245, 0.2); /* Borde más claro en fondo oscuro */
+}
+.dark-theme .deck-stat-highlight {
+    border-top-color: rgba(250, 248, 245, 0.2);
+    border-bottom-color: rgba(250, 248, 245, 0.2);
+}
+.dark-theme .slide-nav-button.next-slide-button { /* Botón de portada si la portada fuera oscura */
+    color: var(--color-bg-dark);
+    background-color: var(--color-accent); /* O un color de acento más brillante */
+}
+.dark-theme .slide-nav-button.next-slide-button:hover {
+    background-color: var(--color-text-dark); /* Ejemplo de hover en tema oscuro */
+    color: var(--color-bg-dark);
+}
+.dark-theme .deck-email-link, .dark-theme .deck-tel-link, .dark-theme .deck-linkedin-link {
+    color: var(--color-text-dark);
+}
+.dark-theme .deck-email-link:hover, .dark-theme .deck-tel-link:hover, .dark-theme .deck-linkedin-link:hover {
+    color: var(--color-accent);
+}
+.dark-theme .deck-logo-footer {
+    color: var(--color-text-dark);
+}
+
+
+/* --- Tipografía y Contenido Específico de Diapositivas --- */
+.deck-main-title {
+    font-family: var(--font-title-display);
+    font-weight: 700;
+    font-size: clamp(2.8rem, 7vw, 5.5rem); /* Ajustado para no ser demasiado masivo */
+    line-height: 1.05;
+    margin-bottom: 0.4em;
+    color: var(--color-text-light); /* Puede ser --color-accent en la portada */
+}
+/* Estilo para los caracteres individuales si se usa Splitting.js */
+.deck-main-title .char, .deck-slide-title[data-splitting] .char { 
+    display: inline-block; /* Necesario para transformaciones GSAP */
+    opacity: 0; /* Inicialmente oculto */
+    /* GSAP maneja el resto */
+}
+
+.deck-tagline {
+    font-family: var(--font-sans);
+    font-weight: 300; /* Ligero y elegante */
+    font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+    line-height: 1.65;
+    margin-bottom: 1.5em; /* Espacio antes del botón */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9; /* Sutil */
+}
+
+.deck-slide-title {
+    font-family: var(--font-title-section);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+    text-transform: uppercase;
+    letter-spacing: 0.08em; /* Un poco más aireado */
+    margin-bottom: 1.2em;
+    position: relative;
+    padding-bottom: 0.4em; /* Espacio para la línea animada */
+    /* La línea en sí se maneja con GSAP o una clase + transición CSS */
+}
+/* Si se usa una clase para animar la línea con CSS transition */
+.deck-slide-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px; /* O un % */
+    height: 2.5px; /* Grosor de la línea */
+    background-color: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1) 0.3s; /* Retraso para después de la entrada del título */
+}
+.deck-slide.active-slide .deck-slide-title.animate-line::before { /* JS añade 'animate-line' */
+    transform: scaleX(1);
+}
+
+
+.deck-p {
+    font-family: var(--font-serif);
+    font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+    line-height: 1.85; /* Buena legibilidad */
+    margin-bottom: 1.5em;
+    max-width: 60ch; /* Óptimo para ancho de lectura */
+}
+.animated-text-block { /* Contenedor para párrafos a animar */
+    margin-bottom: 1.5em;
+}
+
+.deck-stat-highlight {
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    font-style: italic;
+    margin: 2em 0;
+    padding: 1em 0;
+    border-top: 1px solid rgba(44, 42, 40, 0.15);
+    border-bottom: 1px solid rgba(44, 42, 40, 0.15);
+}
+
+.highlight-metric, .highlight-stat-value, .projection-value, .stream-title, .data-value, .solution-point-title, .segment-title, .resource-title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--color-accent);
+}
+.highlight-stat-value { display: inline; font-style: normal; font-weight: 700; }
+.projection-value, .data-value { font-size: 1.6rem; display: block; }
+
+.deck-key-points, .deck-segment-list, .deck-use-of-funds {
+    margin-top: 1.5em;
+    padding-left: 0;
+    list-style: none;
+}
+.deck-key-points span, .deck-segment-list li, .deck-use-of-funds li {
+    display: block;
+    margin-bottom: 1em;
+    font-family: var(--font-serif);
+    font-size: clamp(0.9rem, 1.7vw, 1rem);
+    padding-left: 1.8em;
+    position: relative;
+}
+.deck-key-points span::before, .deck-segment-list li::before, .deck-use-of-funds li::before {
+    content: '•'; /* O un SVG o carácter más estilizado */
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    color: var(--color-accent);
+    font-size: 1.3em; /* Tamaño del bullet */
+    line-height: 1;
+}
+
+.deck-solution-list {
+    list-style-type: none;
+    counter-reset: solution-item;
+    margin-top: 1.5em;
+}
+.deck-solution-list li {
+    margin-bottom: 1.2em;
+    font-family: var(--font-serif);
+    font-size: clamp(0.9rem, 1.7vw, 1rem);
+    padding-left: 2.8em;
+    position: relative;
+}
+.deck-solution-list li::before {
+    counter-increment: solution-item;
+    content: counter(solution-item) ".";
+    font-family: var(--font-sans);
+    font-weight: 700;
+    color: var(--color-accent);
+    position: absolute;
+    left: 0;
+    top: -0.05em;
+    font-size: 1.2em;
+}
+.solution-point-title { display: block; margin-bottom: 0.3em; font-size: 1.05em;}
+
+.deck-value-prop-highlight {
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+    font-style: italic;
+    margin: 2em auto;
+    padding: 1em 1.5em;
+    max-width: 90%;
+    text-align: center;
+    position: relative;
+    border-left: 2.5px solid var(--color-accent);
+    border-right: 2.5px solid var(--color-accent);
+    background-color: rgba(174, 154, 127, 0.05); /* Fondo muy sutil del color de acento */
+}
+.dark-theme .deck-value-prop-highlight {
+    background-color: rgba(250, 248, 245, 0.05);
+}
+
+
+.deck-revenue-streams, .deck-financial-projections, .deck-resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); /* Mejor responsividad */
+    gap: 1.8em;
+    margin-top: 2em;
+    max-width: var(--content-max-width-wider);
+    margin-left: auto;
+    margin-right: auto;
+}
+.stream-item, .projection-item, .resource-item {
+    padding: 1.5em 1.2em;
+    border: 1px solid rgba(44, 42, 40, 0.12);
+    border-radius: 6px;
+    background-color: rgba(255,255,255,0.2); /* Sutil fondo si el fondo del slide es color */
+}
+.dark-theme .stream-item, .dark-theme .projection-item, .dark-theme .resource-item {
+    border-color: rgba(250, 248, 245, 0.2);
+    background-color: rgba(0,0,0,0.1);
+}
+.stream-title, .projection-year, .resource-title {
+    display: block;
+    margin-bottom: 0.6em;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+}
+.stream-detail, .resource-detail {
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    opacity: 0.9;
+    line-height: 1.65;
+}
+.projection-value {
+    display: block;
+    font-size: 1.7rem;
+    margin-top: 0.2em;
+    font-weight: 700; /* Más destacado */
+}
+
+.disclaimer-text {
+    font-family: var(--font-sans);
+    font-size: 0.7rem; /* Más pequeño */
+    opacity: 0.65;
+    margin-top: 2.5em;
+    text-align: center;
+}
+
+/* --- Botón de Navegación en Portada --- */
+.slide-nav-button.next-slide-button {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-bg-light);
+    background-color: var(--color-accent);
+    border: none;
+    padding: 0.9em 2em; /* Ligeramente más grande */
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    display: inline-block;
+    margin-top: 2.5em;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.slide-nav-button.next-slide-button:hover {
+    background-color: var(--color-accent-darker);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* --- Navegación Inferior de Diapositivas --- */
+.deck-slide-navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 18px var(--section-padding-horizontal); /* Un poco más de padding */
+    background-color: rgba(250, 248, 245, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000; /* Encima de todo */
+    border-top: 1px solid rgba(44, 42, 40, 0.1);
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.03); /* Sombra sutil arriba */
+}
+.dark-theme-navigation.deck-slide-navigation { /* Clase añadida por JS si la slide activa es oscura */
+    background-color: rgba(44, 42, 40, 0.92);
+    border-top: 1px solid rgba(250, 248, 245, 0.12);
+    color: var(--color-text-dark);
+}
+.dark-theme-navigation .slide-nav-arrow { color: var(--color-text-dark); }
+.dark-theme-navigation .slide-nav-arrow:hover { color: var(--color-accent); }
+.dark-theme-navigation #current-slide-indicator { color: var(--color-text-dark); }
+
+
+.slide-nav-arrow {
+    font-family: var(--font-sans); /* O un icono SVG */
+    font-size: 1.6rem;
+    color: var(--color-text-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 50%; /* Hacerlos circulares */
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+}
+.slide-nav-arrow:hover {
+    color: var(--color-accent);
+    background-color: rgba(174, 154, 127, 0.1); /* Fondo sutil al hacer hover */
+}
+.slide-nav-arrow:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    background-color: transparent;
+    transform: scale(1);
+}
+
+#current-slide-indicator {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    letter-spacing: 0.05em;
+}
+
+/* --- Contacto Final --- */
+.contact-deck { background-color: var(--color-bg-light); color: var(--color-text-light); } /* Siempre claro */
+
+.deck-contact-p {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    margin-bottom: 2em;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+}
+.deck-contact-info { margin-top: 1.5em; }
+.deck-contact-info p {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    margin-bottom: 0.8em;
+    line-height: 1.6;
+}
+.deck-email-link, .deck-tel-link, .deck-linkedin-link {
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-weight: 600; /* Hacerlos más prominentes */
+    border-bottom: 1.5px solid transparent; /* Subrayado sutil al hacer hover */
+    padding-bottom: 2px;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+.deck-email-link:hover, .deck-tel-link:hover, .deck-linkedin-link:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+}
+.deck-logo-footer {
+    font-family: var(--font-title-display);
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin-top: 2.5em;
+    opacity: 0.9;
+    color: var(--color-text-light);
+}
+
+
+/* --- Clases de Utilidad para Animaciones GSAP (Ocultas Inicialmente) --- */
+/* GSAP se encargará de la opacidad y transformaciones, pero definirlas aquí puede ayudar a evitar FOUC */
+.animated-title-line,
+.animated-subtitle,
+.animated-text-block,
+.animated-list > *,
+.animated-list-ordered > *,
+.animated-list-bullet > *,
+.animated-grid > *,
+.animated-data,
+.animated-stat,
+.deck-scroll-prompt, /* Aunque este no se usa igual, se puede mantener para consistencia */
+.slide-nav-button.next-slide-button { /* El botón de portada también puede tener una animación de entrada */
+    opacity: 0;
+    /* Si se desea una transformación inicial por defecto para GSAP */
+    /* transform: translateY(20px); */
+}
+
+/* --- Media Queries para Responsividad --- */
+@media (max-width: 900px) { /* Tablet y pantallas más pequeñas */
+    :root {
+        --section-padding-horizontal: 6vw;
+        --content-max-width: 90%; /* Usar más del ancho disponible */
+        --content-max-width-wider: 95%;
+    }
+    .deck-slide-title { font-size: clamp(1.6rem, 4vw, 2.5rem); }
+    .deck-main-title { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+    .deck-p { font-size: clamp(0.9rem, 2.5vw, 1rem); }
+    .deck-slide-navigation { padding: 15px var(--section-padding-horizontal); }
+}
+
+@media (max-width: 600px) { /* Móvil */
+    :root {
+        --section-padding-vertical: 5vh;
+        --section-padding-horizontal: 5vw;
+    }
+    .deck-slide-title { letter-spacing: 0.05em; } /* Reducir espaciado si es necesario */
+    .deck-main-title { line-height: 1.1; }
+    .deck-tagline { font-size: clamp(0.95rem, 3.5vw, 1.2rem); }
+    .deck-revenue-streams, .deck-financial-projections, .deck-resources-grid {
+        grid-template-columns: 1fr; /* Apilar siempre en móvil */
+        gap: 1.5em;
+    }
+    .projection-value { font-size: 1.5rem; }
+    .slide-nav-arrow { font-size: 1.4rem; padding: 6px 10px;}
+    #current-slide-indicator { font-size: 0.8rem; }
+    .slide-nav-button.next-slide-button { padding: 0.8em 1.6em; font-size: 0.85rem; }
+}
